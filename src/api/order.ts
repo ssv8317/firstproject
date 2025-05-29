@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5097/api/orders';
+const API_URL = 'https://localhost:7100/api/orders';
 
 export interface Order {
   id?: string;
