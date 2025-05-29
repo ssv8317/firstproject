@@ -10,14 +10,20 @@ builder.Services.Configure<CanteenDatabaseSettings>(
 // DI for services
 builder.Services.AddSingleton<OrderService>();
 
-// CORS for React frontend
+// CORS for React frontend - Updated to handle both HTTP and HTTPS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5173", "https://localhost:5173")
-              .AllowAnyHeader()
-              .AllowAnyMethod();
+        policy.WithOrigins(
+                "http://localhost:5173",
+                "https://localhost:5173",
+                "http://127.0.0.1:5173",
+                "https://127.0.0.1:5173"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .WithExposedHeaders("*");
     });
 });
 
@@ -27,7 +33,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Enable CORS
+// Enable CORS - Move before other middleware
 app.UseCors("AllowFrontend");
 
 if (app.Environment.IsDevelopment())

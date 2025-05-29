@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_URL = 'https://localhost:7100/api/orders';
+// Updated to use HTTP instead of HTTPS for local development
+const API_URL = 'http://localhost:5097/api/orders';
 
 export interface Order {
   id?: string;
