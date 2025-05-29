@@ -1,7 +1,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace CanteenOrderingAPI.Models;
+namespace Models;
 
 public class Order
 {

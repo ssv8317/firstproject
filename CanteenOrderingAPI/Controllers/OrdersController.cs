@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using CanteenOrderingAPI.Models;
+using Models;
 using Services;
 
 namespace Controllers;

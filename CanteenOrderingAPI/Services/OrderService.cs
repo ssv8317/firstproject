@@ -1,7 +1,6 @@
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Models;
-using CanteenOrderingAPI.Models;
 
 namespace Services;
 
