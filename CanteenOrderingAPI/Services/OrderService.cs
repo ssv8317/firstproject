@@ -17,10 +17,15 @@ public class OrderService
     }
 
     public async Task<List<Order>> GetOrdersAsync() =>
-        await _ordersCollection.Find(_ => true).ToListAsync();
+        await _ordersCollection.Find(_ => true).SortByDescending(o => o.OrderTime).ToListAsync();
 
     public async Task<Order> CreateOrderAsync(Order order)
     {
+        if (order == null)
+        {
+            throw new ArgumentNullException(nameof(order));
+        }
+
         await _ordersCollection.InsertOneAsync(order);
         return order;
     }

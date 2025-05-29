@@ -13,13 +13,18 @@ function OrderForm() {
   const [success, setSuccess] = useState(false);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const value = e.target.type === 'number' 
+      ? parseInt(e.target.value, 10) 
+      : e.target.value;
+    setForm({ ...form, [e.target.name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    setSuccess(false);
+
     try {
       await placeOrder(form);
       setSuccess(true);
