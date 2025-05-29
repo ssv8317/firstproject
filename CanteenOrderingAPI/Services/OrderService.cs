@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Models;
 using CanteenOrderingAPI.Models;
@@ -11,14 +11,17 @@ public class OrderService
 
     public OrderService(IOptions<CanteenDatabaseSettings> dbSettings)
     {
-        var client = new MongoClient(dbSettings.Value.ConnectionString);
-        var database = client.GetDatabase(dbSettings.Value.DatabaseName);
-        _ordersCollection = database.GetCollection<Order>(dbSettings.Value.OrdersCollectionName);
+        var mongoClient = new MongoClient(dbSettings.Value.ConnectionString);
+        var mongoDatabase = mongoClient.GetDatabase(dbSettings.Value.DatabaseName);
+        _ordersCollection = mongoDatabase.GetCollection<Order>(dbSettings.Value.OrdersCollectionName);
     }
 
     public async Task<List<Order>> GetOrdersAsync() =>
         await _ordersCollection.Find(_ => true).ToListAsync();
 
-    public async Task CreateOrderAsync(Order order) =>
+    public async Task<Order> CreateOrderAsync(Order order)
+    {
         await _ordersCollection.InsertOneAsync(order);
+        return order;
+    }
 }

@@ -1,4 +1,4 @@
-﻿using Models;
+using Models;
 using Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,12 +10,12 @@ builder.Services.Configure<CanteenDatabaseSettings>(
 // DI for services
 builder.Services.AddSingleton<OrderService>();
 
-// ✅ CORS for React frontend on port 5176
+// CORS for React frontend
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5176")
+        policy.WithOrigins("http://localhost:5173") // Updated port for Vite
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -27,11 +27,14 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// ✅ Enable CORS
+// Enable CORS
 app.UseCors("AllowFrontend");
 
-app.UseSwagger();
-app.UseSwaggerUI();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
