@@ -16,7 +16,7 @@ export const getOrders = async () => {
     const response = await axios.get<Order[]>(API_URL);
     return response.data;
   } catch (error) {
-    console.error("❌ Failed to fetch orders:", error);
+    console.error("Failed to fetch orders:", error);
     throw error;
   }
 };
@@ -26,7 +26,7 @@ export const placeOrder = async (order: Omit<Order, 'id' | 'orderTime'>) => {
     const response = await axios.post<Order>(API_URL, order);
     return response.data;
   } catch (error) {
-    console.error("❌ Failed to place order:", error);
+    console.error("Failed to place order:", error);
     throw error;
   }
 };
