@@ -10,7 +10,7 @@ builder.Services.Configure<CanteenDatabaseSettings>(
 // DI for services
 builder.Services.AddSingleton<OrderService>();
 
-// CORS for React frontend - Updated to handle both HTTP and HTTPS
+// CORS for React frontend
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
@@ -33,7 +33,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Enable CORS - Move before other middleware
+// Enable CORS before other middleware
 app.UseCors("AllowFrontend");
 
 if (app.Environment.IsDevelopment())
